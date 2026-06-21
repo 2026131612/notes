@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>낙서장 — 개인용 노트</title>
+  <meta name="description" content="폴더로 정리하고 간단한 서식으로 꾸미는 개인용 노트(낙서장). 브라우저에 바로 저장됩니다." />
+
+  <!-- 글꼴: Gaegu(손글씨 느낌, 로고용) + IBM Plex Sans KR(본문) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+
+    <!-- ===================== 사이드바 ===================== -->
+    <aside class="sidebar" id="sidebar">
+      <header class="sidebar-head">
+        <h1 class="logo">낙서장</h1>
+        <p class="logo-sub">생각을 아무렇게나 적어두는 곳</p>
+      </header>
+
+      <div class="toolbar-side">
+        <button class="btn" id="btnNewFolder">＋ 폴더</button>
+        <button class="btn btn-primary" id="btnNewNote">＋ 노트</button>
+      </div>
+
+      <p class="target-line">
+        새 항목 위치: <span id="targetFolder">최상위</span>
+      </p>
+
+      <nav class="tree" id="tree" aria-label="폴더와 노트 목록"></nav>
+
+      <footer class="sidebar-foot">
+        내용은 이 브라우저에만 저장돼요
+      </footer>
+    </aside>
+
+    <!-- 모바일에서 사이드바를 덮는 배경 -->
+    <div class="backdrop" id="backdrop" hidden></div>
+
+    <!-- ===================== 본문 ===================== -->
+    <main class="main">
+      <div class="topbar">
+        <button class="menu-toggle" id="menuToggle" aria-label="폴더 목록 열기">☰</button>
+        <span class="topbar-title">낙서장</span>
+      </div>
+
+      <!-- 노트가 선택되지 않았을 때 -->
+      <section class="empty-state" id="emptyState">
+        <div class="empty-card">
+          <div class="empty-mark">✎</div>
+          <h2>적어볼까요?</h2>
+          <p>왼쪽에서 노트를 고르거나 <b>＋ 노트</b>를 눌러<br>새로 시작하세요.</p>
+        </div>
+      </section>
+
+      <!-- 노트 편집 화면 -->
+      <section class="note-editor" id="noteEditor" hidden>
+        <input class="note-title" id="noteTitle" type="text" placeholder="제목 없는 노트"
+               aria-label="노트 제목" autocomplete="off" />
+
+        <div class="format-toolbar" role="toolbar" aria-label="글자 서식">
+          <button class="fmt" id="btnBold" title="굵게 (Ctrl+B)" aria-label="굵게"><b>B</b></button>
+          <button class="fmt" id="btnItalic" title="기울임 (Ctrl+I)" aria-label="기울임"><i>I</i></button>
+          <span class="fmt-divider" aria-hidden="true"></span>
+          <label class="size-label" for="sizeSelect">크기</label>
+          <select class="size-select" id="sizeSelect" aria-label="글씨 크기">
+            <option value="2">작게</option>
+            <option value="3" selected>보통</option>
+            <option value="5">크게</option>
+            <option value="6">제목</option>
+          </select>
+        </div>
+
+        <div class="note-body" id="noteBody" contenteditable="true"
+             aria-label="노트 내용" spellcheck="false"></div>
+
+        <footer class="note-foot">
+          <span id="noteLocation" class="note-loc">최상위</span>
+          <span class="dot">·</span>
+          <span id="noteMeta"></span>
+          <span class="save-status" id="saveStatus">준비됨</span>
+        </footer>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
